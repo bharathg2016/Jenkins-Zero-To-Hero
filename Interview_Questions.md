@@ -136,4 +136,37 @@ Q: What are some of the common plugins that you use in Jenkins ?
 
 A: Be prepared for answer, you need to have atleast 3-4 on top of your head, so that interview feels you use jenkins on a day-to-day basis.
 
+Q: Explain your current Current CI/CD Set up
+
+A: There are many tools, I will consider Jenkins to answer this.
+
+CI/CD is a process of Continuous Integration and Continuous delivery. In the current organization, we use GITHUB as source code repository. We have configured a Github webhook that triggers a Jenkins Pipeline on every commit, The Jenkins pipeline is set up with multiple stages.
+
+1. Build stage: Takes care of Static code anlaysis, Unit testing and Build.
+2. Test Stage: running smoke and functional tests.
+3. Deploy stage: Push artifacts to registry, prepare deployment manifests and deploy on the cluster.
+
+Q: How do you handle secrets:
+
+A: Secrets exists through out the delivery life cycle as applciation secrets,credentials, and other sensitive information should be secured, obfuscated and governed.
+
+* code repositories like Github,Gitlab and Bitbucket.
+* Continuous integration servers and continuous Delivery platforms- Jenkins, Bamboo, JFrog, Teamcity, Drone, Harness, Gitlab CI/CD, Circle CI and so on.
+* Cloud Providers and Conatiner Platforms - AWS , GCP, AZURE , KUBERNETES ( as keys, configuration files, and the other information).
+* Infrastructure- (SSH keys, load balancer credentials).
+* Tools- Hashicorp Vault, AWS systems manager, Azure vault...
+
+Q: What is your Deployment Strategy?
+Is it Blue-Green deployment or Canary Deployment?
+
+A: Blue-green deployment: Blue-green deployment is a technique that helps you reduce app downtime and risk by running two identical production environments: Blue and Green. At any time, only one of the environments is live, with the live environment serving all production traffic. For the example discussed here, Blue is live and Green is idle.
+Testing of a new version is conducted on the idle one. We use LB
+
+ Canary Deployment:In software engineering, canary deployment is the practice of making staged releases. We roll out a software update to a small part of the users first, so they may test it and provide feedback. Once the change is accepted, the update is rolled out to the rest of the users. The canary strategy offers no-downtime upgrades and easy rollbacks.
+
+Q: What would you do if deployed application is faulty?
+A: Since we use Blue-green deployment, it is very easy to us to roll back.
+
+Q: How do you do Jenkis stup, backup and scaling up?
+A: We have setup Jenkins in AWS and we have setup auto-scaling group, so this auto-scaling group takes care of scaling up , scaling down and once the EC2 is spinned, Jenkins usually use SSH to interact with the newly created node.
 
